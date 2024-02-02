@@ -22,12 +22,15 @@ const ConnectBluetooth = () => {
 
   const sendPDF = async () => {
     if (!bluetoothDevice) {
+      alert('Bluetooth device not connected');
       console.error('Bluetooth device not connected');
       return;
     }
 
     try {
-      const response = await fetch('example.pdf'); // Replace with your file path or URL
+      const response = await fetch(
+        'https://www.generalblue.com/calendar/downloads/2024-multi-colored-calendar-sunday-start.pdf'
+      );
       const pdfData = await response.arrayBuffer();
       //@ts-ignore
       await bluetoothDevice.gatt.writeCharacteristic(
@@ -36,6 +39,7 @@ const ConnectBluetooth = () => {
       );
 
       console.log('PDF sent for printing');
+      alert('PDF sent for printing');
     } catch (error) {
       console.error('Error sending PDF for printing:', error);
     }
